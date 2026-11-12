@@ -1,0 +1,10 @@
+{
+  "name": "normalize",
+  "version": "1.0.0",
+  "description": "Rewrite a rambling prompt into a compact engineering prompt on a cheap model (Haiku). English, Ukrainian, Russian.",
+  "author": { "name": "MarkForest", "url": "https://github.com/MarkForest" },
+  "homepage": "https://github.com/MarkForest/normalize-prompt",
+  "repository": "https://github.com/MarkForest/normalize-prompt",
+  "license": "MIT",
+  "keywords": ["prompt", "prompt-engineering", "normalize", "haiku", "ukrainian"]
+}

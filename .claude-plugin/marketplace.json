@@ -1,0 +1,12 @@
+{
+  "name": "markforest-normalize-prompt",
+  "description": "normalize: rewrite rambling prompts into engineering prompts on Haiku",
+  "owner": { "name": "MarkForest", "url": "https://github.com/MarkForest" },
+  "plugins": [
+    {
+      "name": "normalize",
+      "source": "./",
+      "description": "Rewrite a rambling prompt into a compact engineering prompt on a cheap model (Haiku). English, Ukrainian, Russian."
+    }
+  ]
+}
