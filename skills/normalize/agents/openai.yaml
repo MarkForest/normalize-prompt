@@ -1,0 +1,6 @@
+interface:
+  display_name: "Normalize prompt"
+  short_description: "Rewrite a rambling prompt into a compact engineering prompt"
+  default_prompt: "Normalize this prompt: "
+policy:
+  allow_implicit_invocation: true

@@ -1,10 +1,14 @@
-# normalize — rambling prompt → engineering prompt, on Haiku
+# normalize — rambling prompt → engineering prompt
 
-A Claude Code skill that rewrites a casual, rambling prompt into a compact engineering prompt:
-goal, checkable "must be true" list, "how to work" list. Same requirements, less prose.
+A skill for Claude Code and Codex that rewrites a casual, rambling prompt into a compact
+engineering prompt: goal, checkable "must be true" list, "how to work" list. Same
+requirements, less prose.
 
-- **Cheap.** Runs in a forked subagent on **Haiku** with low effort — about $0.004 and ~10 s
-  per prompt. Your main model is not spent on it.
+- **Works on any model, weak ones included.** The instructions are explicit, step by step,
+  with a mandatory self-check, so small and cheap models follow them reliably — you don't
+  need a top model to clean up a prompt. In Claude Code it runs in a forked subagent on a
+  cheap model with low effort — a fraction of a cent and ~10 s per prompt, your main model is
+  not spent on it.
 - **Faithful.** Every output line traces to a phrase in your input. A mandatory second pass
   restores dropped requirements and deletes invented ones. Paths, identifiers and your
   CAPS emphasis stay verbatim; a hunch stays a hunch, not a task.
@@ -14,7 +18,7 @@ goal, checkable "must be true" list, "how to work" list. Same requirements, less
 - **Text only.** It never executes the prompt — you read the result and paste it where you
   want.
 
-## Install
+## Install in Claude Code
 
 **As a plugin** (command becomes `/normalize:normalize`):
 
@@ -30,23 +34,58 @@ git clone https://github.com/MarkForest/normalize-prompt /tmp/normalize-prompt
 cp -r /tmp/normalize-prompt/skills/normalize ~/.claude/skills/
 ```
 
-Or with the [skills CLI](https://skills.sh): `npx skills add MarkForest/normalize-prompt --skill normalize`
+## Install in Codex
+
+**As a personal skill** (invoke with `$normalize`):
+
+```
+git clone https://github.com/MarkForest/normalize-prompt /tmp/normalize-prompt
+mkdir -p ~/.agents/skills && cp -r /tmp/normalize-prompt/skills/normalize ~/.agents/skills/
+```
+
+For one repository only, copy it to `.agents/skills/` in that repository instead. Or ask Codex
+to install it for you:
+
+```
+$skill-installer install https://github.com/MarkForest/normalize-prompt/tree/main/skills/normalize
+```
+
+**As a plugin:** add the marketplace, then install `normalize` from the plugin browser
+(`codex`, then `/plugins`) and start a new session:
+
+```
+codex plugin marketplace add MarkForest/normalize-prompt
+```
+
+**With the [skills CLI](https://skills.sh)** (Claude Code, Codex and other agents):
+`npx skills add MarkForest/normalize-prompt --skill normalize`
 
 ## Use
 
-In any Claude Code session:
+In Claude Code:
 
 ```
 /normalize so basically on the search page the meal filter should allow picking several options at once, like AI and UAI together. and keep it in the url. tests pls, and DON'T touch the backend api if you can avoid it
 ```
 
-Or say "normalize this prompt: …" / "нормалізуй промпт: …" / "нормализуй промпт: …".
+In Codex — the same text after `$normalize` (or pick the skill in `/skills`):
 
-Without a session — copy your draft, run this, paste the result into your working session
-(macOS):
+```
+$normalize so basically on the search page the meal filter should allow picking several options at once ...
+```
+
+In either agent you can also just say "normalize this prompt: …" / "нормалізуй промпт: …" /
+"нормализуй промпт: …".
+
+Without a session — copy your draft, run one of these, paste the result into your working
+session (macOS):
 
 ```
 claude -p "/normalize $(pbpaste)" | pbcopy
+```
+
+```
+codex exec "\$normalize $(pbpaste)" | pbcopy
 ```
 
 Flags go before the text:
@@ -57,7 +96,14 @@ Flags go before the text:
 | `--for /cmd` | Put `/cmd` on the first line, shape for that command |
 | `--en` / `--uk` (`--ua`) / `--ru` | Force output language |
 
-Want more quality than Haiku? Change `model: haiku` to `model: sonnet` in `SKILL.md`.
+## Choosing the model
+
+The skill works on any model; a bigger one gives a bit more polish on long, tangled prompts.
+
+- **Claude Code** — set by `model:` in `skills/normalize/SKILL.md` (a cheap model by
+  default). Change it to `sonnet` or `opus`, or delete the line to use the session's model.
+- **Codex** — skills run on the session's model. For a cheap run pick a small model with
+  `/model`, or pass `-m <model>` to `codex exec`.
 
 ## Example
 
@@ -89,16 +135,19 @@ clean text to review and paste.
 
 ## Українською
 
-Скіл для Claude Code: перетворює розмовний, «розтягнутий» промпт на стислий інженерний —
-мета, перелік «має бути правдою», перелік «як працювати». Працює в окремому субагенті на
-Haiku (≈ $0.004 і ~10 с за промпт), основна модель на це не витрачається. Відповідає мовою
-промпту, розрізняє українську й російську, прибирає суржик. Нічого не виконує — лише
-повертає текст, який ви вставляєте в робочу сесію.
+Скіл для Claude Code і Codex: перетворює розмовний, «розтягнутий» промпт на стислий
+інженерний — мета, перелік «має бути правдою», перелік «як працювати». Підходить для будь-якої
+моделі, зокрема для слабких і дешевих: інструкції покрокові, з обов'язковою самоперевіркою.
+У Claude Code працює в окремому субагенті на дешевій моделі, основна модель на це не
+витрачається. Відповідає мовою промпту, розрізняє українську й російську, прибирає суржик.
+Нічого не виконує — лише повертає текст, який ви вставляєте в робочу сесію.
 
-Встановлення й використання — вище: `/normalize <ваш текст>` або «нормалізуй промпт: …».
+Встановлення й використання — вище: `/normalize <ваш текст>` у Claude Code, `$normalize <ваш
+текст>` у Codex або «нормалізуй промпт: …».
 
 ## Credits
 
 Based on the `normalize` skill from [xtieume/testcase](https://github.com/xtieume/testcase)
-(MIT). Changes in this repo: forked Haiku subagent, Ukrainian and Russian support, localized
-headers, explicit input block, plugin packaging. License: MIT, see [LICENSE](LICENSE).
+(MIT). Changes in this repo: forked subagent on a cheap model in Claude Code, Codex support,
+Ukrainian and Russian support, localized headers, explicit input block, plugin packaging.
+License: MIT, see [LICENSE](LICENSE).
