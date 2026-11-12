@@ -1,6 +1,6 @@
 {
   "name": "normalize",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Rewrite a rambling prompt into a compact engineering prompt. Works on any model, including small and cheap ones. English, Ukrainian, Russian.",
   "author": {
     "name": "MarkForest",
@@ -13,7 +13,7 @@
     "prompt",
     "prompt-engineering",
     "normalize",
-    "codex",
+    "claude-code",
     "ukrainian"
   ]
 }

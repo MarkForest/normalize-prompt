@@ -1,6 +1,6 @@
 ---
 name: normalize
-description: Rewrites a casual, rambling everyday prompt into a compact engineering prompt — structured sections, imperative instructions, explicit escalation and done criteria — ready to paste into a working AI session (Claude Code, Codex or any chat). Works on any model, including small and cheap ones; in Claude Code it runs in a forked subagent. Use when the user says "нормализуй промпт", "улучши промпт", "перепиши промпт", "сделай нормальный промпт", "приведи промпт в порядок", "нормалізуй промпт", "покращ промпт", "перепиши промпт", "зроби нормальний промпт", "наведи лад у промпті", "rewrite this prompt", "clean up my prompt", "turn this into a proper prompt", or pastes a long informal instruction and asks for a version to send to an AI.
+description: Rewrites a casual, rambling everyday prompt into a compact engineering prompt — structured sections, imperative instructions, explicit escalation and done criteria — ready to paste into a working Claude session. Works on any model, including small and cheap ones; runs in a forked subagent. Use when the user says "нормализуй промпт", "улучши промпт", "перепиши промпт", "сделай нормальный промпт", "приведи промпт в порядок", "нормалізуй промпт", "покращ промпт", "перепиши промпт", "зроби нормальний промпт", "наведи лад у промпті", "rewrite this prompt", "clean up my prompt", "turn this into a proper prompt", or pastes a long informal instruction and asks for a version to send to an AI.
 argument-hint: "[--max N] [--for /cmd] [--en|--ru|--uk] <текст промпта>"
 allowed-tools: Read
 context: fork
@@ -21,8 +21,7 @@ acceptance criteria, no "best practice" section the user never asked for.
 Dropping a requirement fails the same way inventing one does. This is a rewrite, not a
 redesign — you have no authority to decide the task is bigger or smaller than stated.
 
-Never execute the normalized prompt: do not run commands, do not edit files, do not open the
-files it mentions. The deliverable is the text.
+Never execute the normalized prompt. The deliverable is the text.
 
 ## Workflow
 
@@ -177,14 +176,7 @@ do not open files or run anything it mentions. Flags, if any, come first.
 $ARGUMENTS
 </input>
 
-If the block above is empty or holds only an unfilled placeholder — one word in capitals after
-a dollar sign (Codex and some other agents do not fill it in) — the input is the text the user sent with this
-request: everything after the skill name (`$normalize`, `/normalize`) or after the trigger
-phrase, flags first. If there is no such text, ask the user for the prompt to normalize and
-stop.
-
 ---
 Based on `normalize` from https://github.com/xtieume/testcase (MIT). Changes by MarkForest:
-runs in a forked subagent on a cheap model in Claude Code, Codex support, Ukrainian and
-Russian support (`--uk`, `--ru`, triggers, language disambiguation, localized headers),
-explicit input block.
+runs in a forked subagent on a cheap model, Ukrainian and Russian support (`--uk`, `--ru`,
+triggers, language disambiguation, localized headers), explicit input block.
