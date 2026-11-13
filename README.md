@@ -94,6 +94,21 @@ A Claude Code `UserPromptSubmit` hook cannot replace your prompt — it can only
 next to it or block it. So the main model would see both versions. A skill gives you the
 clean text to review and paste.
 
+## Author
+
+Hi, I'm **Anatolii Marchenko** — a full-stack developer who builds products end to end with Claude Code as an engineering team: spec, plan, subagent-driven development with review, CI deciding what reaches production. My latest product, [TourSearch](https://markforest.github.io/toursearch/), is a multi-operator tour search platform built solo this way and running in production.
+
+I build Claude Code skills, agent workflows and full-stack products (PHP / Laravel, Vue / TypeScript, PostgreSQL, Docker). **Need something like this for your team or product? Let's talk.**
+
+- Portfolio: https://markforest.github.io
+- LinkedIn: https://www.linkedin.com/in/anatoliimarchenko/
+- Telegram: [@mark4rest](https://t.me/mark4rest)
+- Email: amarchenkodev@gmail.com
+
+More skills by me: [resume-create](https://github.com/MarkForest/resume-create) — tailor your resume to any job posting in one prompt: a one-page PDF and a cover letter in the posting's language, nothing invented.
+
+**If this skill saved you time, star the repo ⭐ and tell me what you used it for.**
+
 ## Українською
 
 Скіл для Claude Code: перетворює розмовний, «розтягнутий» промпт на стислий інженерний —
